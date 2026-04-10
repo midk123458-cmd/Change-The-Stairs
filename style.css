@@ -1,6 +1,7 @@
 body {
     background-image: url("https://img.freepik.com/fotos-premium/antiguo-fondo-textura-papel-pergamino-papel-pintado-vintage_118047-9985.jpg?w=1060");
     background-size: cover;
+    background-repeat: no-repeat;
     margin:0;
   }
   
