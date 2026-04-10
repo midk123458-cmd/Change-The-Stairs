@@ -227,7 +227,6 @@ function attack() {
     text.innerText += "You attack it with your " + weapons[currentWeapon].name + ".";
 
     if (isMonsterHit()) {
-
         health-=getMonsterAttackValue(monsters[fighting].level);
     } else {
         text.innerText += " You missed." ;
@@ -247,14 +246,15 @@ function attack() {
 };
 
 function getMonsterAttackValue(level) {
-    let hit = (level * 5 ) - (Math.florr(Math.random()*xp));
+    // BUG FIX: Math.florr → Math.floor
+    let hit = (level * 5 ) - (Math.floor(Math.random()*xp));
     console.log(hit);
     return hit;
 };
 
 function isMonsterHit() {
-    // Math.random > .2 --> 20
-    return Math.random > .2 || health < 20;
+    // BUG FIX: Math.random → Math.random() (faltaban paréntesis)
+    return Math.random() > .2 || health < 20;
 };
 function dodge() {
     text.innerText = "You dodged the attack from " + monsters[fighting].name + ".";
@@ -271,10 +271,10 @@ function lose() {
     update(locations[5]);
 };
 
-function restart() {
+// BUG FIX: winGame() era llamada pero nunca estaba definida
+function winGame() {
     update(locations[6]);
 };
-
 
 function restart() {
     xp=0;
