@@ -12,15 +12,16 @@
 
 <div id="game">
 
-	<div class="reproductor-contenedor">
-		<!-- El disco visual -->
-		<div class="disco" id="disco"></div>
-		
-		<br>
-		<!-- Controles de audio -->
-		<audio autoplay loop src="Life in Adventure theme(full version).mp3">
-		</audio>
+	<div id="vinyl-wrapper">
+		<div>
+			<div id="vinyl" title="Reproducir / Pausar música"></div>
+			<div id="vinyl-label">♪ MUSIC ♪</div>
+		</div>
 	</div>
+
+	<audio id="bgMusic" loop>
+		<source src="Life_in_Adventure_theme_full_version_.mp3" type="audio/mpeg">
+	</audio>
 
 	<div id="stats">
 		<span class="stat">XP: <strong><span id="xpText">0</span></strong></span>

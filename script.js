@@ -118,16 +118,18 @@ const locations = [
 Initializing buttons:
 */
 
-const audio = document.getElementById('audio');
-    const disco = document.getElementById('disco');
+const vinyl = document.getElementById('vinyl');
+  const bgMusic = document.getElementById('bgMusic');
 
-    // Escuchar cuando el audio se reproduce o pausa
-    audio.onplay = () => {
-        disco.classList.add('reproduciendo');
-    };
-    audio.onpause = () => {
-        disco.classList.remove('reproduciendo');
-    };
+  vinyl.addEventListener('click', () => {
+    if (bgMusic.paused) {
+      bgMusic.play();
+      vinyl.classList.add('playing');
+    } else {
+      bgMusic.pause();
+      vinyl.classList.remove('playing');
+    }
+  });
 
 button1.onclick = goStore;
 button2.onclick = goCave;

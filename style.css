@@ -2,89 +2,96 @@ body {
     background-image: url("https://img.freepik.com/fotos-premium/antiguo-fondo-textura-papel-pergamino-papel-pintado-vintage_118047-9985.jpg?w=1060");
     background-size: cover;
     background-repeat: no-repeat;
-    margin:0;
+    margin: 0;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  
-  #text {
+
+/* ── Disco rotatorio ── */
+#vinyl-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+#vinyl {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at center, #c8a951 0%, #c8a951 10%,
+                        #1a1a1a 11%, #1a1a1a 30%,
+                        #2a2a2a 31%, #2a2a2a 32%,
+                        #1a1a1a 33%, #1a1a1a 48%,
+                        #2a2a2a 49%, #2a2a2a 50%,
+                        #1a1a1a 51%, #1a1a1a 100%);
+    box-shadow: 0 0 18px rgba(0,0,0,0.6), inset 0 0 6px rgba(255,255,255,0.05);
+    cursor: pointer;
+    animation: spin 4s linear infinite;
+    animation-play-state: paused;
+    transition: box-shadow 0.3s;
+}
+
+#vinyl.playing {
+    animation-play-state: running;
+    box-shadow: 0 0 28px rgba(200,169,81,0.5), inset 0 0 6px rgba(255,255,255,0.05);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+#vinyl-label {
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    font-family: serif;
+}
+
+/* ── Juego ── */
+#game {
+    width: 90vw;
+    max-width: 90vw;
+    max-height: none;
+    background-color: lightgray;
+    color: white;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#text {
     background-color: black;
     color: white;
     padding: 10px;
     font-size: x-large;
-  }
-  
-  #game {
-    width: 90%;
-    height: 90%;
-    background-color: lightgray;
-    color: white;
-    margin: auto;
-    padding: 10px;
-  }
-  
-  #controls {
+}
+
+#controls {
     border: 1px black solid;
     padding: 5px;
-  }
-  
-  #stats {
+}
+
+#stats {
     border: 1px black solid;
     color: black;
     padding: 5px;
-  }
-  
-  #monsterStats {
+}
+
+#monsterStats {
     display: none;
     border: 1px black solid;
     color: white;
     padding: 5px;
     background-color: red;
-  }
-  
-  /* Contenedor principal */
-  .reproductor-contenedor {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
-  }
+}
 
-  /* Estilo del disco giratorio */
-  .disco {
-      width: 200px;
-      height: 200px;
-      background: black;
-      border-radius: 50%;
-      border: 10px solid #333;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      /* Animación de rotación */
-      animation: rotar 5s linear infinite;
-      animation-play-state: paused; /* Pausado por defecto */
-  }
-
-  /* Centro del disco */
-  .disco::after {
-      content: "";
-      width: 40px;
-      height: 40px;
-      background: white;
-      border-radius: 50%;
-      border: 2px solid #ccc;
-  }
-
-  /* Clase para iniciar la animación */
-  .disco.reproduciendo {
-      animation-play-state: running;
-  }
-
-  @keyframes rotar {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-  }
-
-  .stat {
+.stat {
     padding-right: 10px;
-  }
+}
