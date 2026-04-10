@@ -118,6 +118,17 @@ const locations = [
 Initializing buttons:
 */
 
+const audio = document.getElementById('audio');
+    const disco = document.getElementById('disco');
+
+    // Escuchar cuando el audio se reproduce o pausa
+    audio.onplay = () => {
+        disco.classList.add('reproduciendo');
+    };
+    audio.onpause = () => {
+        disco.classList.remove('reproduciendo');
+    };
+
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
