@@ -1,0 +1,283 @@
+
+body {
+  background-color: #0a0a23;
+  /* Tambahkan ini agar kontainer bisa di tengah */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#game-container {
+  /* Atur ukuran total "konsol" game kita */
+  width: 520px;
+  border: 5px solid #555;
+  background-color: #333;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#text {
+  background-color: #0a0a23;
+  color: #ffffff;
+  padding: 10px;
+}
+
+#game {
+  max-width: 500px;
+  max-height: 400px;
+  background-color: #ffffff;
+  color: #0a0a23; /* Pastikan ini sudah benar */
+  padding: 10px;
+  margin: 0;
+}
+
+/* --- STYLE UNTUK LAYAR INVENTARIS BARU --- */
+#inventoryScreen {
+  max-width: 500px;
+  background-color: #0a0a23;
+  color: #ffffff;
+  padding: 10px;  
+  /* margin: 30px auto 0px; */
+  margin-top: 10px; /* Jarak antara dua layar */
+  border: 2px solid #feac32;
+  font-family: monospace; /* Beri kesan retro */
+}
+
+#inventoryScreen h2 {
+  text-align: center;
+  color: #feac32;
+  border-bottom: 1px solid #feac32;
+  padding-bottom: 5px;
+}
+
+/* UBAH #inventoryContent MENJADI FLEX CONTAINER */
+#inventoryContent {
+  display: flex;
+  justify-content: space-between; /* Memberi jarak antara teks dan gambar */
+  align-items: center; /* Membuat teks dan gambar sejajar di tengah */
+}
+
+#inventoryContent p {
+  margin: 8px 0; /* Beri jarak antar baris */
+}
+
+#inventoryContent strong {
+  color: #2ecc71; /* Warna hijau untuk nilai status */
+}
+
+.weapon-stats {
+  flex-grow: 1; /* Biarkan bagian teks mengisi ruang yang tersedia */
+}
+
+/* Atur ukuran gambar senjata */
+#weaponImage {
+  width: 80px;  /* Atur lebar gambar */
+  height: 80px; /* Atur tinggi gambar */
+  border: 2px solid #555;
+  background-color: #000;
+  margin-left: 15px; /* Jarak antara teks dan gambar */
+}
+
+#controls {
+  border: 1px solid #0a0a23;
+  padding: 5px; /* Hapus padding agar tombol bisa mentok */
+  color: #0a0a23;
+  display: flex; /* --- INI KUNCINYA --- */
+}
+
+
+#stats {
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #0a0a23;
+}
+
+#monsterStats {
+  display: none;
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #ffffff;
+  background-color: #c70d0d;
+}
+
+.stat {
+  padding-right: 10px;
+}
+
+button {
+  border: 1px solid #0a0a23; /* Buat border tipis sebagai pemisah */
+  flex-grow: 1; /* Setiap tombol akan meregang mengisi ruang yang sama */
+  padding: 10px 0; /* Beri sedikit padding vertikal */
+  margin: 0; /* Hapus margin */
+  font-size: 16px; /* Perbesar sedikit font-nya */
+}
+
+#visual {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 200px; /* Atur tinggi area visual */
+  padding: 10px;
+  border-bottom: 1px solid #0a0a23;
+  transition: background-image 0.5s ease-in-out;
+}
+
+#heroImage, #monsterImage {
+  max-width: 150px; /* Atur lebar maksimal gambar */
+  max-height: 150px; /* Atur tinggi maksimal gambar */
+}
+
+#monsterImage {
+  display: none; /* Sembunyikan gambar monster secara default */
+}
+
+
+/* Keyframes untuk animasi serangan hero */
+@keyframes lunge {
+  0% {
+    transform: translateX(0); /* Posisi awal */
+  }
+  50% {
+    transform: translateX(20px); /* Bergerak 20px ke kanan */
+  }
+  100% {
+    transform: translateX(0); /* Kembali ke posisi awal */
+  }
+}
+
+/* Keyframes untuk animasi monster terkena damage */
+@keyframes damage-flash {
+  0% {
+    filter: brightness(1); /* Kecerahan normal */
+  }
+  50% {
+    filter: brightness(2.5) saturate(2); /* Berkilat terang dan warna lebih pekat */
+  }
+  100% {
+    filter: brightness(1); /* Kembali normal */
+  }
+}
+
+/* Tambahkan di bagian animasi */
+@keyframes screen-shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.shake-animation {
+  animation-name: screen-shake;
+  animation-duration: 0.5s;
+}
+
+/* Class yang akan kita tambahkan/hapus dengan JavaScript */
+.lunge-animation {
+  animation-name: lunge;
+  animation-duration: 0.4s; /* Durasi animasi 0.4 detik */
+  animation-timing-function: ease-out;
+}
+
+.flash-animation {
+  animation-name: damage-flash;
+  animation-duration: 0.3s; /* Durasi animasi 0.3 detik */
+  animation-timing-function: ease-in-out;
+}
+
+.health-bar-container {
+  width: 100px;
+  height: 10px;
+  background-color: #e0e0e0;
+  border: 1px solid #0a0a23;
+}
+.health-bar {
+  height: 100%;
+  width: 100%; /* Awalnya penuh */
+  background-color: #2ecc71; /* Warna hijau */
+}
+
+/* Class untuk setiap lokasi */
+.bg-town {
+  background-image: url('./images/bg-town.png') ; /* Ganti dengan URL gambar Town Square */
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.bg-store {
+  background-image: url('./images/bg-store.png'); /* Ganti dengan URL gambar Store */
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.bg-cave {
+  background-image: url('./images/bg-cave.png'); /* Ganti dengan URL gambar Cave */
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.bg-battle {
+  background-image: url('./images/bg-battle.png'); /* Ganti dengan URL gambar Battle Scene */
+  background-size: cover;
+  background-position: center bottom;
+}
+
+/* --- STYLE UNTUK GAMBAR NAGA BESAR --- */
+.dragon-large {
+  width: 100%; 
+  height: auto; 
+  min-height: 100%; 
+  object-fit: contain; 
+  position: inherit;
+  top: 0; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 10;
+  background-repeat: no-repeat; 
+  background-position: center bottom; 
+}
+
+.bg-dragon {
+  /* Ganti URL_GAMBAR_SARANG_NAGA dengan URL yang benar */
+  background-image: url('./images/dragon.png'); 
+  
+  /* Pilih salah satu dari dua opsi di bawah ini */
+  
+  /* Opsi A: Mengisi seluruh area (mungkin terpotong) */
+  background-size: cover; 
+  
+  /* Opsi B: Memastikan seluruh gambar terlihat (mungkin ada space kosong) */
+  /* background-size: contain; */
+
+  background-position: center bottom; /* Posisikan di tengah bawah */
+  background-repeat: no-repeat; /* Jangan ulangi gambar */
+}
+
+/* --- FOOTER CREDITS STYLE --- */
+footer {
+  margin-top: 20px; /* Beri jarak dari kotak game */
+  text-align: center; /* Posisikan teks di tengah */
+  color: #ffffff; /* Warna teks putih */
+  font-family: monospace; /* Samakan font dengan inventory screen */
+  font-size: 14px;
+}
+
+/* Style untuk link di dalam footer */
+footer a {
+  color: #feac32; /* Warna link kuning-oranye, sama seperti border inventory */
+  text-decoration: none; /* Hilangkan garis bawah default */
+}
+
+/* Efek saat kursor mouse di atas link */
+footer a:hover {
+  text-decoration: underline; /* Munculkan garis bawah saat di-hover */
+}
+
